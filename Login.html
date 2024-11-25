@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Login Page</title>
+  <link rel="stylesheet" href="Login.css">
+ 
+</head>
+<body>
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username or Email" />
+      <div class="error" id="usernameError">Please enter a valid email or username (minimum 3 characters).</div>
+
+      <input type="password" id="password" placeholder="Password" />
+      <div class="error" id="passwordError">
+        Password must be at least 6 characters, contain at least one uppercase letter, one number, and one special character.
+      </div>
+
+      <button type="submit">Login</button>
+      <div class="info">* Required fields</div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    const usernameError = document.getElementById("usernameError");
+    const passwordError = document.getElementById("passwordError");
+
+    // Regular Expressions for Validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // For email validation
+    const usernameRegex = /^[a-zA-Z0-9_]{3,}$/; // For username validation (minimum 3 characters)
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/; // Password strength
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault(); // Prevent form from refreshing the page
+
+      let valid = true;
+
+      // Validate Username or Email
+      if (!emailRegex.test(username.value) && !usernameRegex.test(username.value)) {
+        usernameError.style.display = "block";
+        valid = false;
+      } else {
+        usernameError.style.display = "none";
+      }
+
+      // Validate Password
+      if (!passwordRegex.test(password.value)) {
+        passwordError.style.display = "block";
+        valid = false;
+      } else {
+        passwordError.style.display = "none";
+      }
+
+      // If valid, redirect to the dashboard
+      if (valid) {
+        alert("Login successful!");
+        window.location.href = "deshboard.html"; // Redirect to dashboard
+      }
+    });
+  </script>
+</body>
+</html>
